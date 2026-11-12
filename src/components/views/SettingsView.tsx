@@ -214,20 +214,20 @@ export const SettingsView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
             <span className="text-xs text-slate-500">
               Mata uang aktif: <strong>Rupiah (IDR)</strong>
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               {balanceSavedMsg && (
-                <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
+                <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1 justify-center">
                   <Check className="w-4 h-4" />
                   Saldo awal tersimpan!
                 </span>
               )}
               <button
                 type="submit"
-                className="px-4 py-2 text-xs font-bold text-white bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-500 rounded-xl transition-colors"
+                className="w-full sm:w-auto px-4 py-2.5 text-xs font-bold text-white bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-500 rounded-xl transition-colors min-h-[40px]"
               >
                 Simpan Saldo Awal
               </button>
@@ -289,17 +289,17 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Add Category Form */}
-        <form onSubmit={handleAddCategory} className="flex gap-2 items-center">
+        <form onSubmit={handleAddCategory} className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
           <input
             type="text"
             value={newCatName}
             onChange={(e) => setNewCatName(e.target.value)}
             placeholder={`Tambah kategori ${activeCategoryType}...`}
-            className="flex-1 px-3.5 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="flex-1 px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[40px]"
           />
           <button
             type="submit"
-            className="px-4 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl transition-colors inline-flex items-center gap-1.5 shrink-0"
+            className="px-4 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl transition-colors inline-flex items-center justify-center gap-1.5 shrink-0 min-h-[40px]"
           >
             <Plus className="w-3.5 h-3.5" />
             Tambah Kategori
@@ -404,13 +404,13 @@ export const SettingsView: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <button
             onClick={handleDownloadBackup}
-            className="flex items-center justify-center gap-2 p-3 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors"
+            className="flex items-center justify-center gap-2 p-3.5 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors min-h-[44px]"
           >
             <Download className="w-4 h-4 text-emerald-600" />
             Unduh Cadangan (Backup JSON)
           </button>
 
-          <label className="flex items-center justify-center gap-2 p-3 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer">
+          <label className="flex items-center justify-center gap-2 p-3.5 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]">
             <Upload className="w-4 h-4 text-indigo-600" />
             Pulihkan dari Berkas JSON
             <input
@@ -423,10 +423,10 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Reset Actions */}
-        <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <button
             onClick={handleConfirmReset}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors min-h-[38px] rounded-lg border border-slate-200 dark:border-slate-700 sm:border-transparent"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Muat Ulang Sampel Bawaan Indonesia
@@ -434,7 +434,7 @@ export const SettingsView: React.FC = () => {
 
           <button
             onClick={handleConfirmClearAll}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 hover:text-rose-700 transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-rose-600 hover:text-rose-700 transition-colors min-h-[38px] rounded-lg border border-rose-200 dark:border-rose-900/50 sm:border-transparent"
           >
             <Trash2 className="w-3.5 h-3.5" />
             Kosongkan Seluruh Data Transaksi

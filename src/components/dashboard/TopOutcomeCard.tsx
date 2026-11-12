@@ -45,24 +45,24 @@ export const TopOutcomeCard: React.FC<TopOutcomeCardProps> = ({
   }
 
   return (
-    <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-      <div className="flex items-center gap-4">
-        <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 shrink-0">
-          <Flame className="w-5 h-5" />
+    <div className="p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4">
+      <div className="flex items-center gap-3 sm:gap-4 w-full md:w-auto">
+        <div className="p-2.5 sm:p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 shrink-0">
+          <Flame className="w-4 h-4 sm:w-5 sm:h-5" />
         </div>
-        <div>
-          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-            <span className="font-semibold uppercase tracking-wider text-[11px] text-rose-600 dark:text-rose-400">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+            <span className="font-semibold uppercase tracking-wider text-[10px] sm:text-[11px] text-rose-600 dark:text-rose-400">
               Pengeluaran Terbesar
             </span>
-            <span aria-hidden="true">·</span>
-            <span>Kontributor {topCategory.percentage}% dari total belanja konsumsi</span>
+            <span aria-hidden="true" className="hidden xs:inline">·</span>
+            <span className="truncate">Porsi {topCategory.percentage}% dari konsumsi</span>
           </div>
-          <div className="mt-1 flex items-baseline gap-3">
-            <span className="text-lg font-bold text-slate-900 dark:text-white">
+          <div className="mt-0.5 sm:mt-1 flex flex-wrap items-baseline gap-2 sm:gap-3">
+            <span className="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate">
               {topCategory.category.name}
             </span>
-            <span className="font-mono text-base font-bold text-rose-600 dark:text-rose-400 tabular-nums">
+            <span className="font-mono text-sm sm:text-base font-bold text-rose-600 dark:text-rose-400 tabular-nums">
               {formatIDR(topCategory.amount)}
             </span>
           </div>
@@ -70,8 +70,8 @@ export const TopOutcomeCard: React.FC<TopOutcomeCardProps> = ({
       </div>
 
       <div className="w-full md:w-auto flex items-center justify-between md:justify-end gap-3 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
-        <div className="text-right hidden sm:block">
-          <div className="text-[11px] text-slate-400">
+        <div className="text-left md:text-right">
+          <div className="text-[10px] sm:text-[11px] text-slate-400">
             Total Outcome Periode
           </div>
           <div className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 tabular-nums">
@@ -80,7 +80,7 @@ export const TopOutcomeCard: React.FC<TopOutcomeCardProps> = ({
         </div>
         <button
           onClick={() => onViewCategoryHistory(topCategory.category.id)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors whitespace-nowrap shrink-0 min-h-[36px]"
         >
           Lihat Transaksi
           <ArrowRight className="w-3.5 h-3.5" />

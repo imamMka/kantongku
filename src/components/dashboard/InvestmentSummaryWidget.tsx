@@ -59,6 +59,7 @@ export const InvestmentSummaryWidget: React.FC<InvestmentSummaryWidgetProps> = (
       </div>
 
       {/* Subcategory List */}
+      {/* Subcategory List */}
       <div className="mt-4">
         {breakdowns.length === 0 ? (
           <div className="py-6 text-center">
@@ -73,29 +74,32 @@ export const InvestmentSummaryWidget: React.FC<InvestmentSummaryWidgetProps> = (
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {breakdowns.map(item => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+            {breakdowns.map((item) => {
               const IconComponent = getSubcategoryIcon(item.subCategory);
+
               return (
                 <div
                   key={item.subCategory}
-                  className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 flex items-center justify-between"
+                  className="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-lg bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-2xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-2 rounded-lg bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-2xs shrink-0">
                       <IconComponent className="w-4 h-4" />
                     </div>
-                    <div>
-                      <div className="text-xs font-semibold text-slate-900 dark:text-slate-100">
+
+                    <div className="min-w-0">
+                      <div className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">
                         {item.subCategory}
                       </div>
-                      <div className="text-[11px] text-slate-400 dark:text-slate-500">
-                        Porsi {item.percentage}% dari portofolio
+                      <div className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 truncate">
+                        Porsi {item.percentage}% dari total investasi bulan ini
                       </div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-mono text-xs font-bold text-slate-900 dark:text-white tabular-nums">
+
+                  <div className="text-right shrink-0">
+                    <div className="font-mono text-xs sm:text-sm font-bold text-slate-900 dark:text-white tabular-nums">
                       {formatIDR(item.amount)}
                     </div>
                   </div>

@@ -78,11 +78,11 @@ export const MonthlyReportView: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 sm:gap-2.5">
           <select
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
-            className="px-3 py-2 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs"
+            className="w-full sm:w-auto px-3 py-2 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs min-h-[40px]"
           >
             {availablePeriods.map(p => (
               <option key={p} value={p}>
@@ -91,48 +91,50 @@ export const MonthlyReportView: React.FC = () => {
             ))}
           </select>
 
-          <button
-            onClick={handleExportCSV}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors shadow-2xs"
-          >
-            <Download className="w-4 h-4 text-slate-500" />
-            Ekspor CSV
-          </button>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              onClick={handleExportCSV}
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors shadow-2xs min-h-[40px]"
+            >
+              <Download className="w-4 h-4 text-slate-500" />
+              Ekspor CSV
+            </button>
 
-          <button
-            onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 rounded-xl transition-colors shadow-2xs"
-          >
-            <Printer className="w-4 h-4" />
-            Cetak / Simpan PDF
-          </button>
+            <button
+              onClick={handlePrint}
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 rounded-xl transition-colors shadow-2xs min-h-[40px]"
+            >
+              <Printer className="w-4 h-4" />
+              Cetak / PDF
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Main Printable Document Sheet */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-6">
-        {/* Document Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-200 dark:border-slate-800 gap-4">
-          <div>
-            <div className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Dompet<span className="text-emerald-600">Ku</span>
+        {/* Main Printable Document Sheet */}
+        <div className="p-4 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-6 overflow-hidden">
+          {/* Document Header */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-200 dark:border-slate-800 gap-4">
+            <div>
+              <div className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Kantong<span className="text-emerald-600">Ku</span>
+              </div>
+              <div className="text-xs text-slate-500 mt-1">
+                Laporan Posisi Keuangan & Anggaran Pribadi
+              </div>
             </div>
-            <div className="text-xs text-slate-500 mt-1">
-              Laporan Posisi Keuangan & Anggaran Pribadi
+            <div className="text-left sm:text-right">
+              <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Periode Pembukuan
+              </div>
+              <div className="text-lg font-bold text-slate-900 dark:text-white">
+                {formatPeriodIndonesian(selectedPeriod)}
+              </div>
+              <div className="text-[11px] text-slate-400 mt-0.5">
+                Dicetak pada {new Date().toLocaleDateString('id-ID', { dateStyle: 'full' })}
+              </div>
             </div>
           </div>
-          <div className="text-left sm:text-right">
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Periode Pembukuan
-            </div>
-            <div className="text-lg font-bold text-slate-900 dark:text-white">
-              {formatPeriodIndonesian(selectedPeriod)}
-            </div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
-              Dicetak pada {new Date().toLocaleDateString('id-ID', { dateStyle: 'full' })}
-            </div>
-          </div>
-        </div>
 
         {/* 1. Ringkasan Eksekutif Mutasi Kas */}
         <div>

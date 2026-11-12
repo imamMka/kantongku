@@ -231,73 +231,139 @@ export const AnalysisView: React.FC<AnalysisViewProps> = ({ onNavigateToHistory 
           </div>
         </div>
 
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50/80 dark:bg-slate-800/60 text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800">
-              <tr>
-                <th className="py-2.5 px-3">Kategori</th>
-                <th className="py-2.5 px-3 text-right">Batas Anggaran</th>
-                <th className="py-2.5 px-3 text-right">Realisasi Belanja</th>
-                <th className="py-2.5 px-3 text-right">Sisa / Kelebihan</th>
-                <th className="py-2.5 px-3 text-center">Pemakaian</th>
-                <th className="py-2.5 px-3 text-center">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              {budgetsWithRealization.map(item => {
-                return (
-                  <tr key={item.category.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                    <td className="py-2.5 px-3 font-semibold text-slate-800 dark:text-slate-200">
-                      {item.category.name}
-                    </td>
-                    <td className="py-2.5 px-3 text-right font-mono tabular-nums text-slate-600 dark:text-slate-400">
-                      {item.hasBudget ? formatIDR(item.budgetAmount) : <span className="text-slate-400 italic">Belum diatur</span>}
-                    </td>
-                    <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-900 dark:text-white tabular-nums">
+        <div className="mt-4">
+          {/* Mobile Card List (< 640px) */}
+          <div className="sm:hidden space-y-3">
+            {budgetsWithRealization.map(item => (
+              <div
+                key={item.category.id}
+                className="p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 space-y-2"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-xs text-slate-800 dark:text-slate-100">
+                    {item.category.name}
+                  </span>
+                  {!item.hasBudget ? (
+                    <span className="text-[11px] text-slate-400">Tanpa Batas</span>
+                  ) : item.isOverBudget ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 dark:text-rose-400">
+                      <AlertTriangle className="w-3 h-3" />
+                      Terlampaui ({item.percentage}%)
+                    </span>
+                  ) : item.percentage >= 80 ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                      Mendekati Batas ({item.percentage}%)
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                      <CheckCircle2 className="w-3 h-3" />
+                      Aman ({item.percentage}%)
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-slate-200/50 dark:border-slate-700/50">
+                  <div>
+                    <span className="text-[10px] text-slate-400 block">Realisasi Belanja</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">
                       {formatIDR(item.realization)}
-                    </td>
-                    <td className="py-2.5 px-3 text-right font-mono font-semibold tabular-nums">
-                      {item.hasBudget ? (
-                        item.isOverBudget ? (
-                          <span className="text-rose-600 dark:text-rose-400">
-                            +{formatIDR(Math.abs(item.remaining))} (Lebih)
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block">Batas Anggaran</span>
+                    <span className="font-mono text-slate-600 dark:text-slate-400">
+                      {item.hasBudget ? formatIDR(item.budgetAmount) : '—'}
+                    </span>
+                  </div>
+                </div>
+
+                {item.hasBudget && (
+                  <div className="text-[11px] pt-1">
+                    <span className="text-slate-400">Sisa: </span>
+                    {item.isOverBudget ? (
+                      <span className="font-mono font-bold text-rose-600 dark:text-rose-400">
+                        +{formatIDR(Math.abs(item.remaining))} (Kelebihan)
+                      </span>
+                    ) : (
+                      <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                        {formatIDR(item.remaining)}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table (>= 640px) */}
+          <div className="hidden sm:block overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-slate-50/80 dark:bg-slate-800/60 text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800">
+                <tr>
+                  <th className="py-2.5 px-3">Kategori</th>
+                  <th className="py-2.5 px-3 text-right">Batas Anggaran</th>
+                  <th className="py-2.5 px-3 text-right">Realisasi Belanja</th>
+                  <th className="py-2.5 px-3 text-right">Sisa / Kelebihan</th>
+                  <th className="py-2.5 px-3 text-center">Pemakaian</th>
+                  <th className="py-2.5 px-3 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {budgetsWithRealization.map(item => {
+                  return (
+                    <tr key={item.category.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                      <td className="py-2.5 px-3 font-semibold text-slate-800 dark:text-slate-200">
+                        {item.category.name}
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-mono tabular-nums text-slate-600 dark:text-slate-400">
+                        {item.hasBudget ? formatIDR(item.budgetAmount) : <span className="text-slate-400 italic">Belum diatur</span>}
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-900 dark:text-white tabular-nums">
+                        {formatIDR(item.realization)}
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-mono font-semibold tabular-nums">
+                        {item.hasBudget ? (
+                          item.isOverBudget ? (
+                            <span className="text-rose-600 dark:text-rose-400">
+                              +{formatIDR(Math.abs(item.remaining))} (Lebih)
+                            </span>
+                          ) : (
+                            <span className="text-emerald-600 dark:text-emerald-400">
+                              {formatIDR(item.remaining)}
+                            </span>
+                          )
+                        ) : (
+                          <span className="text-slate-400">—</span>
+                        )}
+                      </td>
+                      <td className="py-2.5 px-3 text-center font-mono tabular-nums">
+                        {item.hasBudget ? `${item.percentage}%` : '—'}
+                      </td>
+                      <td className="py-2.5 px-3 text-center">
+                        {!item.hasBudget ? (
+                          <span className="text-[11px] text-slate-400">Tanpa Batas</span>
+                        ) : item.isOverBudget ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 dark:text-rose-400">
+                            <AlertTriangle className="w-3 h-3" />
+                            Terlampaui
+                          </span>
+                        ) : item.percentage >= 80 ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                            Mendekati Batas
                           </span>
                         ) : (
-                          <span className="text-emerald-600 dark:text-emerald-400">
-                            {formatIDR(item.remaining)}
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                            <CheckCircle2 className="w-3 h-3" />
+                            Aman
                           </span>
-                        )
-                      ) : (
-                        <span className="text-slate-400">—</span>
-                      )}
-                    </td>
-                    <td className="py-2.5 px-3 text-center font-mono tabular-nums">
-                      {item.hasBudget ? `${item.percentage}%` : '—'}
-                    </td>
-                    <td className="py-2.5 px-3 text-center">
-                      {!item.hasBudget ? (
-                        <span className="text-[11px] text-slate-400">Tanpa Batas</span>
-                      ) : item.isOverBudget ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 dark:text-rose-400">
-                          <AlertTriangle className="w-3 h-3" />
-                          Terlampaui
-                        </span>
-                      ) : item.percentage >= 80 ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 dark:text-amber-400">
-                          Mendekati Batas
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-                          <CheckCircle2 className="w-3 h-3" />
-                          Aman
-                        </span>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
