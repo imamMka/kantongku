@@ -1,0 +1,6 @@
+{
+  "name": "DompetKu - Personal Finance Dashboard",
+  "description": "Aplikasi pencatatan dan pemantauan keuangan pribadi: kelola pemasukan, pengeluaran konsumsi, alokasi investasi, dan anggaran bulanan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
